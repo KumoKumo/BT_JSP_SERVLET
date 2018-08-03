@@ -6,12 +6,10 @@
 <html>
 <link href="css/login.css" rel="stylesheet">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta http-equiv="Cache-Control"
-	content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<title>Kotori no Kusuri</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<script src="javascript/jquery-3.2.1.js"></script>
+	<script src="javascript/login.js"></script>
+	<title>Kotori no Kusuri</title>
 </head>
 <body>
 	<c:if test='${not empty sessionScope["userAcc"]}'>
@@ -22,14 +20,17 @@
 		<div class="header">
 			<!-- <br /><br /><p class="logo">Database System</p> -->
 		</div>
-		<form action="checkLog" method="post">
-			<label class="blah" for="username">Username</label> <input
-				class="blah input_txt" type="text" name="username"><br>
-			<label class="blah" for="password">Password</label> <input
-				class="blah input_txt" type="password" name="password"><br>
-			<input class="form-submit-button blah" type="submit" value="Log in">
+		<form id="loginForm" action="login" method="post">
+			<div id=username_div>
+				<label class="blah" for="username">Username</label>
+				<input id="username" class="blah input_txt" type="text" name="username"><br>
+			</div>
+			<div id="password_div">
+				<label class="blah" for="password">Password</label>
+				<input id="password" class="blah input_txt" type="password" name="password"><br>
+			</div>
+			<input id="submit" class="form-submit-button blah" type="submit" value="Log in">
 		</form>
-
 	</div>
 </body>
 </html>

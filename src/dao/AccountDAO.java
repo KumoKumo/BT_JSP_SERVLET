@@ -43,7 +43,7 @@ public class AccountDAO {
 	
 	public ArrayList<Account> getAll() throws SQLException, Exception{
 		ArrayList<Account> list =  new ArrayList<>();
-		String query = "SELECT * FROM tbl_account";
+		String query = "SELECT * FROM tbl_account ORDER BY username";
 		PreparedStatement stmt = con.getConnector().prepareStatement(query);
 		ResultSet result= stmt.executeQuery();
 		while(result.next()) {//Improve later
@@ -62,20 +62,37 @@ public class AccountDAO {
 		stmt.executeUpdate();
 	}
 	
-	public void edit(int id, String username,String password) throws SQLException, Exception {
-		String query="UPDATE tbl_account SET username=?, password=? WHERE id=?";
+	public void edit(int id, String username,String password, int status) throws SQLException, Exception {
+		String query="UPDATE tbl_account SET username=?, password=?, status=? WHERE id=?";
 		PreparedStatement stmt = con.getConnector().prepareStatement(query);
 		stmt.setString(1, username);
 		stmt.setString(2, password);
-		stmt.setInt(3, id);
+		stmt.setInt(3, status);
+		stmt.setInt(4, id);
 		stmt.executeUpdate();
 	}
 	
-	public void add(String username, String password) throws SQLException, Exception {
-		String query="INSERT INTO tbl_account(username, password, status) VALUES (?,?,0)";
+	public void add(String username, String password, int role) throws SQLException, Exception {
+		String query="INSERT INTO tbl_account(username, password, status) VALUES (?,?,?)";
 		PreparedStatement stmt = con.getConnector().prepareStatement(query);
 		stmt.setString(1, username);
 		stmt.setString(2, password);
+		stmt.setInt(3, role);
 		stmt.executeUpdate();
+	}
+	
+	public ArrayList<Account> search(String key) throws SQLException, Exception {
+		ArrayList<Account> list =  new ArrayList<>();
+		String query = "SELECT * FROM tbl_account WHERE username LIKE ? ORDER BY username";
+		PreparedStatement stmt = con.getConnector().prepareStatement(query);
+		stmt.setString(1, "%"+key+"%");
+		ResultSet result= stmt.executeQuery();
+		while(result.next()) {//Improve later
+			Account acc = new Account(result.getString("username"), result.getString("password"));
+			acc.setId(result.getInt("id"));
+			acc.setStatus(result.getInt("status"));
+			list.add(acc);
+		}
+		return list;
 	}
 }

@@ -9,6 +9,28 @@ p{
 	color:blue;
 	font: bold 36px Brush Script MT, sans-serif;
 }
+span{
+	color:red;
+}
+
+table{
+	position: relative;
+	width: 70%;
+	height: auto;
+	margin: 20px auto 20px auto;
+}
+
+td, th{
+	border: 1px solid black;
+}
+
+th{
+	background-color: #4CAF50;
+}
+
+.inner{
+	display: inline-block;
+}
 
 .background-image {
   background-image: url('../images/header.jpg');

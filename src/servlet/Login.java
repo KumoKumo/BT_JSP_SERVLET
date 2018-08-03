@@ -1,8 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +13,19 @@ import javax.servlet.http.HttpSession;
 import dao.AccountDAO;
 import model.Account;
 
-@WebServlet("/checkLog")
-public class checkLogInServlet extends HttpServlet {
+@WebServlet("/login")
+public class Login extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
+		rd.forward(req, resp);
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		AccountDAO accDAO = new AccountDAO();
@@ -28,7 +39,7 @@ public class checkLogInServlet extends HttpServlet {
 				session.setAttribute("userAcc", acc);
 				resp.sendRedirect("welcome.jsp");
 			} else {
-				resp.sendRedirect("login.jsp");
+				doGet(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

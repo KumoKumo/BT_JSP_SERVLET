@@ -6,28 +6,88 @@
 		</div>
 		<div class="body">
 			<div class="show">
-				<c:forEach items="${accs}" var="acc">
-					${acc.username} 
-					<form action="showprofile" method="post">
-						<input type="hidden" name="id" value="${acc.id}"> 
-						<input type="submit" value="show detail">
-					</form>
-
-					<form action="delacc" method="post">
-						<input type="hidden" name="id" value="${acc.id}"> 
-						<input type="submit" value="Delete">
-					</form>
-
-					<form action="edit.jsp" method="post">
-						<input type="hidden" name="id" value="${acc.id}"> 
-						<input
-							type="hidden" name="username" value="${acc.username}"> 
-							<input type="hidden" name="password" value="${acc.password}"> 
-							<input type="submit" value="Edit">
-					</form>
-				</c:forEach>
-				<br> 
-				<a href="add_acc.jsp"><button>New Account</button></a>
+				<form action="search">
+				Search :
+					<input type="text" name="key"> 
+					<input type = "submit" value="SEARCH">
+				</form>
+				<br>
+				<c:choose>
+					<c:when test="${userAcc.status == 1 }">
+						<a href="add_acc.jsp"><button class = "button">New Account</button></a>
+						<br>
+						<table>
+							<tr>
+								<th>Username</th>
+								<th>Role</th>
+								<th>Action</th>
+							</tr>
+							<c:forEach items="${accs}" var="acc">
+								<tr>
+									<td>
+										<c:out value="${acc.username}"></c:out>
+									</td>
+									<td>
+										<c:choose>
+											<c:when test="${acc.status == 1}">
+												Manager
+											</c:when>
+											<c:otherwise>
+												Normal Account
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+										<form class="inner" action="showprofile" method="post">
+											<input type="hidden" name="id" value="${acc.id}">
+											<input type="submit" value="Show Profile">
+										</form>
+	
+										<form id="del"+${acc.id} class="inner" action="delacc" method="post">
+											<input type="hidden" name="id" value="${acc.id}">
+											<input type="submit" value="Delete">
+										</form>
+	
+										<form class="inner" action="edit" method="get">
+											<input type="hidden" name="id" value="${acc.id}">
+											<input type="submit" value="Edit">
+										</form>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<table>
+							<tr>
+								<th>Username</th>
+								<th>Role</th>
+								<th>Action</th>
+							</tr>
+							<c:forEach items="${accs}" var="acc">
+								<tr>
+									<td>${acc.username}</td>
+									<td>
+										<c:choose>
+											<c:when test="${acc.status == 1}">
+												Manager
+											</c:when>
+											<c:otherwise>
+												Normal Account
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+										<form action="showprofile" method="post">
+											<input type="hidden" name="id" value="${acc.id}">
+											<input type="submit" value="Show Profile">
+										</form>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="menu">
 				<ul>

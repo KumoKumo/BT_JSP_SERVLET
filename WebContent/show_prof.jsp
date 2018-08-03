@@ -9,7 +9,20 @@
 			<div class="show">
 				<c:choose>
 					<c:when test="${prof.status == 1}">
-    					${prof.name } +${prof.email } +${prof.address }  <br>
+						<table>
+							<tr>
+								<td><p>Name</p></td>
+								<td>${prof.name }</td>
+							</tr>
+							<tr>
+								<td><p>Email</p></td>
+								<td>${prof.email }</td>
+							</tr>
+							<tr>
+								<td><p>Address</p></td>
+								<td>${prof.address }</td>
+							</tr>
+						</table>
 					</c:when>
 					<c:otherwise>
         				No info.
