@@ -1,3 +1,1 @@
-Kumo desu ga, nani ka?
-Hayate No Gotoku
-Is this newbranch?
+This is a completely new file
